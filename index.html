@@ -1144,23 +1144,48 @@ renderMigration();
 renderGraves();
 renderMessages();
 
-// ============ 留言板功能 ============
-const MSG_STORAGE_KEY = "tu_genealogy_messages";
+// ============ 留言板功能（JSONBin 云端存储） ============
+const MSG_BIN_ID = "69d3c7f9856a68218904c182";
+const MSG_API_KEY = "$2a$10$Et0Z5nQ/NyOAJK3jUL29d.VGuaBoi.GvoptSBbYOrnMm5nOyL9g.W";
+const MSG_API_URL = "https://api.jsonbin.io/v3/b/" + MSG_BIN_ID;
 const MSG_TYPE_LABELS = { birth: "👶 新生报喜", education: "🎓 升学报喜", marriage: "💒 喜结良缘", career: "💼 事业有成", greeting: "💌 家族寄语", other: "📢 其他喜讯" };
 
-function getMessages() {
+async function getMessages() {
     try {
-        return JSON.parse(localStorage.getItem(MSG_STORAGE_KEY) || "[]");
-    } catch(e) { return []; }
+        const resp = await fetch(MSG_API_URL + "/latest", {
+            headers: { "X-Master-Key": MSG_API_KEY }
+        });
+        if (!resp.ok) return [];
+        const data = await resp.json();
+        const msgs = data.record && Array.isArray(data.record.messages) ? data.record.messages : [];
+        return msgs;
+    } catch(e) {
+        // 网络失败时回退到本地缓存
+        try { return JSON.parse(localStorage.getItem("tu_genealogy_messages") || "[]"); } catch(x) { return []; }
+    }
 }
 
-function saveMessages(msgs) {
-    localStorage.setItem(MSG_STORAGE_KEY, JSON.stringify(msgs));
+async function saveMessages(msgs) {
+    // 同时存本地缓存
+    localStorage.setItem("tu_genealogy_messages", JSON.stringify(msgs));
+    try {
+        await fetch(MSG_API_URL, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Master-Key": MSG_API_KEY
+            },
+            body: JSON.stringify({ messages: msgs })
+        });
+    } catch(e) {
+        alert("⚠️ 云端保存失败，留言仅保存在本地");
+    }
 }
 
-function renderMessages() {
+async function renderMessages() {
     const board = document.getElementById("messageBoard");
-    const msgs = getMessages();
+    board.innerHTML = '<div class="message-empty"><p style="color:#999;">正在加载留言…</p></div>';
+    const msgs = await getMessages();
     if (msgs.length === 0) {
         board.innerHTML = '<div class="message-empty"><i class="fas fa-comment-dots" style="font-size:2rem;color:#ccc;margin-bottom:10px;"></i><p>暂无留言，快来写第一条吧！</p></div>';
         return;
@@ -1184,7 +1209,7 @@ function escHtml(s) {
     return d.innerHTML;
 }
 
-function submitMessage() {
+async function submitMessage() {
     const name = document.getElementById("msgName").value.trim();
     const type = document.getElementById("msgType").value;
     const branch = document.getElementById("msgBranch").value.trim();
@@ -1196,10 +1221,10 @@ function submitMessage() {
     const now = new Date();
     const time = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
 
-    const msgs = getMessages();
+    const msgs = await getMessages();
     msgs.push({ name, type, branch, content, time });
-    saveMessages(msgs);
-    renderMessages();
+    await saveMessages(msgs);
+    await renderMessages();
 
     document.getElementById("msgName").value = "";
     document.getElementById("msgBranch").value = "";
