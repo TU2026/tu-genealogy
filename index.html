@@ -121,7 +121,38 @@
         .footer h3 { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 10px; }
         .footer p { margin: 5px 0; font-size: 0.9rem; opacity: 0.8; }
         .footer .copyright { margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; opacity: 0.6; }
-        /* 响应式 */
+        /* 家族寄语 */
+        .motto-section { background: linear-gradient(135deg, #faf5eb, #fff8e1); }
+        .motto-banner { text-align: center; padding: 25px 20px; margin-bottom: 25px; background: linear-gradient(135deg, var(--dark-bg), var(--primary-color)); border-radius: 8px; }
+        .motto-main { font-size: 1.8rem; font-weight: bold; color: var(--secondary-color); letter-spacing: 4px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .motto-sub { font-size: 1rem; color: rgba(255,255,255,0.8); margin-top: 8px; }
+        .motto-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .motto-card { background: white; border-radius: 8px; padding: 20px; text-align: center; border: 1px solid #e8d5b0; transition: transform 0.2s; }
+        .motto-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px var(--shadow-color); }
+        .motto-card-icon { font-size: 2rem; margin-bottom: 10px; }
+        .motto-card-title { font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin-bottom: 8px; }
+        .motto-card-text { font-size: 0.9rem; color: #666; line-height: 1.6; }
+        .motto-quote { text-align: center; padding: 20px; background: rgba(139,69,19,0.05); border-radius: 8px; border: 1px dashed var(--secondary-color); font-size: 1.2rem; color: var(--primary-color); font-style: italic; }
+        /* 留言板 */
+        .message-section { background: white; }
+        .message-form-box { background: #faf5eb; border: 1px solid var(--secondary-color); border-radius: 8px; padding: 20px; margin-bottom: 25px; }
+        .message-form-box h4 { margin: 0 0 15px 0; }
+        .form-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .msg-input, .msg-select { flex: 1; min-width: 200px; padding: 10px 15px; border: 1px solid #d4a76a; border-radius: 4px; font-family: 'Noto Serif SC', serif; font-size: 0.95rem; background: white; outline: none; }
+        .msg-input:focus, .msg-select:focus { border-color: var(--accent-color); }
+        .msg-textarea { width: 100%; min-height: 100px; padding: 10px 15px; border: 1px solid #d4a76a; border-radius: 4px; font-family: 'Noto Serif SC', serif; font-size: 0.95rem; resize: vertical; outline: none; margin-bottom: 10px; box-sizing: border-box; }
+        .msg-textarea:focus { border-color: var(--accent-color); }
+        .msg-submit-btn { display: block; width: 100%; padding: 12px; background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; font-family: 'Noto Serif SC', serif; transition: opacity 0.2s; }
+        .msg-submit-btn:hover { opacity: 0.9; }
+        .message-board { max-height: 500px; overflow-y: auto; }
+        .message-empty { text-align: center; padding: 40px 20px; color: #999; }
+        .message-item { padding: 15px; margin: 10px 0; background: #faf5eb; border-radius: 8px; border-left: 4px solid var(--secondary-color); }
+        .message-item-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+        .message-item-name { font-weight: bold; color: var(--primary-color); font-size: 1.05rem; }
+        .message-item-type { font-size: 0.8rem; padding: 2px 8px; border-radius: 10px; background: white; color: var(--accent-color); border: 1px solid var(--secondary-color); }
+        .message-item-branch { font-size: 0.85rem; color: #888; margin-bottom: 5px; }
+        .message-item-content { font-size: 0.95rem; line-height: 1.6; color: #333; }
+        .message-item-time { font-size: 0.8rem; color: #aaa; margin-top: 5px; }
         @media (max-width: 768px) {
             .header h1 { font-size: 1.8rem; }
             .header h2 { font-size: 1.1rem; }
@@ -138,6 +169,13 @@
             .section { box-shadow: none; break-inside: avoid; }
             .branch-body.collapsed { display: block !important; }
         }
+        @media (max-width: 768px) {
+            .motto-main { font-size: 1.3rem; letter-spacing: 2px; }
+            .motto-sub { font-size: 0.9rem; }
+            .motto-cards { grid-template-columns: 1fr; }
+            .form-row { flex-direction: column; }
+            .msg-input, .msg-select { min-width: auto; }
+        }
     </style>
 </head>
 <body>
@@ -145,16 +183,16 @@
 <!-- 头部 -->
 <header class="header">
     <div class="container">
-        <h1>&#x9F99;&#x864E;&#x6751;&#x6D82;&#x6C0F;&#x5B97;&#x65CF;&#x65CF;&#x8C31;</h1>
-        <h2>&#x84B5;&#x5CAA;&#x53BF;&#x4E09;&#x5C9C;&#x5708;&#x9F99;&#x864E;&#x6751;&#x00B7;&#x4E94;&#x6842;&#x5802;</h2>
-        <p class="subtitle">&#x6E90;&#x8FDC;&#x6D41;&#x957F;&#xFF0C;&#x6839;&#x6DF1;&#x53F6;&#x8302;&#xFF1B;&#x4E94;&#x6842;&#x5BB6;&#x58F0;&#xFF0C;&#x5341;&#x5DDE;&#x4E16;&#x7B2C;&#x3002;&#x8BB0;&#x81EA;&#x660E;&#x592A;&#x7956;&#x6D2A;&#x6B66;&#x5341;&#x516B;&#x5E74;&#xFF081385&#x5E74;&#xFF09;&#x4EC1;&#x5F18;&#x516C;&#x8FC1;&#x5C45;&#x84B5;&#x5CAA;&#xFF0C;&#x81F3;&#x4ECA;&#x5DF2;&#x9010;&#x516D;&#x767E;&#x4E09;&#x5341;&#x4F59;&#x5E74;&#xFF0C;&#x4F20;&#x627F;&#x4E8C;&#x5341;&#x516D;&#x4E16;&#x3002;</p>
+        <h1>龙虎村涂氏宗族族谱</h1>
+        <h2>蕉岭县三圳圩龙虎村·五桂堂</h2>
+        <p class="subtitle">源远流长，根深叶茂；五桂家声，十州世第。记自明太祖洪武十八年（1385年）仁弘公迁居蕉岭，至今已逾六百三十余年，传承二十六世。</p>
     </div>
 </header>
 
 <!-- 导航 -->
 <nav class="navbar">
     <div class="container nav-container">
-        <div style="color:#d4a76a;font-weight:bold;font-size:1.1rem;">&#x6D82;&#x6C0F;&#x65CF;&#x8C31;</div>
+        <div style="color:#d4a76a;font-weight:bold;font-size:1.1rem;">涂氏族谱</div>
         <ul class="nav-links">
             <li><a href="#history"><i class="fas fa-book-open"></i>历史概况</a></li>
             <li><a href="#ancestors"><i class="fas fa-users"></i>历代先祖</a></li>
@@ -162,6 +200,8 @@
             <li><a href="#migration"><i class="fas fa-globe-asia"></i>外迁人员</a></li>
             <li><a href="#graves"><i class="fas fa-monument"></i>祖坟地点</a></li>
             <li><a href="#wugui"><i class="fas fa-temple"></i>五桂堂</a></li>
+            <li><a href="#motto"><i class="fas fa-fire"></i>家族寄语</a></li>
+            <li><a href="#messages"><i class="fas fa-baby"></i>报喜留言</a></li>
         </ul>
     </div>
 </nav>
@@ -814,6 +854,76 @@
         </div>
     </section>
 
+    <!-- 七、家族寄语 -->
+    <section id="motto" class="section motto-section">
+        <h2 class="section-title" style="text-align:center;"><i class="fas fa-fire"></i> 七、涂氏寄语</h2>
+        <div class="motto-banner">
+            <div class="motto-main">同根同源，团结奋进</div>
+            <div class="motto-sub">涂氏儿女，无论身处何方，皆为龙虎之后</div>
+        </div>
+        <div class="motto-cards">
+            <div class="motto-card">
+                <div class="motto-card-icon">🌿</div>
+                <div class="motto-card-title">根深叶茂</div>
+                <div class="motto-card-text">自仁弘公迁居蕉岭至今已逾六百三十余年，传二十六世。无论天涯海角，我们同宗同祖，血脉相连。望族人互帮互助，共谋发展。</div>
+            </div>
+            <div class="motto-card">
+                <div class="motto-card-icon">📚</div>
+                <div class="motto-card-title">耕读传家</div>
+                <div class="motto-card-text">先祖以五桂登科闻名天下，十州牧民德被四方。愿后人秉承耕读传家之训，勤学善思，以知识改变命运，以德行赢得尊重。</div>
+            </div>
+            <div class="motto-card">
+                <div class="motto-card-icon">🤝</div>
+                <div class="motto-card-title">同心同德</div>
+                <div class="motto-card-text">家族兴旺，贵在团结。望海内外涂氏宗亲常联系、多走动，老有所养、幼有所教，困难时相互扶持，辉煌时共同分享。</div>
+            </div>
+            <div class="motto-card">
+                <div class="motto-card-icon">🌟</div>
+                <div class="motto-card-title">光宗耀祖</div>
+                <div class="motto-card-text">五桂家声，十州世第。望每一位涂氏后裔奋发图强，在各自领域发光发热，为涂氏争光，为龙虎添彩，让家族引以为傲。</div>
+            </div>
+        </div>
+        <div class="motto-quote">
+            <p>"源远流长，根深叶茂；五桂家声，十州世第"</p>
+            <p style="font-size:0.9rem;opacity:0.8;margin-top:8px;">—— 龙虎村涂氏宗族 · 共勉</p>
+        </div>
+    </section>
+
+    <!-- 八、新生代报喜 & 家族留言板 -->
+    <section id="messages" class="section message-section">
+        <h2 class="section-title" style="text-align:center;"><i class="fas fa-baby"></i> 八、新生代报喜 & 家族留言</h2>
+        <p style="text-align:center;color:#666;margin-bottom:20px;font-size:0.95rem;">涂氏家族添丁进口、升学成才、喜结良缘……在此报喜，与全族分享喜悦！</p>
+
+        <!-- 留言表单 -->
+        <div class="message-form-box">
+            <h4 style="color:var(--primary-color);margin-bottom:15px;"><i class="fas fa-edit"></i> 写一条留言</h4>
+            <div class="form-row">
+                <input type="text" id="msgName" placeholder="您的姓名（如：涂XX）" class="msg-input">
+                <select id="msgType" class="msg-select">
+                    <option value="birth">👶 新生报喜</option>
+                    <option value="education">🎓 升学报喜</option>
+                    <option value="marriage">💒 喜结良缘</option>
+                    <option value="career">💼 事业有成</option>
+                    <option value="greeting">💌 家族寄语</option>
+                    <option value="other">📢 其他喜讯</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <input type="text" id="msgBranch" placeholder="所属支脉（选填，如：九盛公·国陞房）" class="msg-input">
+            </div>
+            <textarea id="msgContent" placeholder="分享您的喜讯或寄语……（如：涂XX于2026年X月X日喜得贵子，母子平安！）" class="msg-textarea"></textarea>
+            <button onclick="submitMessage()" class="msg-submit-btn"><i class="fas fa-paper-plane"></i> 发布留言</button>
+        </div>
+
+        <!-- 留言展示区 -->
+        <div id="messageBoard" class="message-board">
+            <div class="message-empty">
+                <i class="fas fa-comment-dots" style="font-size:2rem;color:#ccc;margin-bottom:10px;"></i>
+                <p>暂无留言，快来写第一条吧！</p>
+            </div>
+        </div>
+    </section>
+
 </div>
 
 <!-- 页脚 -->
@@ -1029,6 +1139,71 @@ document.querySelectorAll("a[href^='#']").forEach(anchor => {
 // ============ 初始化 ============
 renderMigration();
 renderGraves();
+renderMessages();
+
+// ============ 留言板功能 ============
+const MSG_STORAGE_KEY = "tu_genealogy_messages";
+const MSG_TYPE_LABELS = { birth: "👶 新生报喜", education: "🎓 升学报喜", marriage: "💒 喜结良缘", career: "💼 事业有成", greeting: "💌 家族寄语", other: "📢 其他喜讯" };
+
+function getMessages() {
+    try {
+        return JSON.parse(localStorage.getItem(MSG_STORAGE_KEY) || "[]");
+    } catch(e) { return []; }
+}
+
+function saveMessages(msgs) {
+    localStorage.setItem(MSG_STORAGE_KEY, JSON.stringify(msgs));
+}
+
+function renderMessages() {
+    const board = document.getElementById("messageBoard");
+    const msgs = getMessages();
+    if (msgs.length === 0) {
+        board.innerHTML = '<div class="message-empty"><i class="fas fa-comment-dots" style="font-size:2rem;color:#ccc;margin-bottom:10px;"></i><p>暂无留言，快来写第一条吧！</p></div>';
+        return;
+    }
+    board.innerHTML = msgs.slice().reverse().map(m => `
+        <div class="message-item">
+            <div class="message-item-header">
+                <span class="message-item-name">${escHtml(m.name)}</span>
+                <span class="message-item-type">${MSG_TYPE_LABELS[m.type] || m.type}</span>
+            </div>
+            ${m.branch ? `<div class="message-item-branch">📍 ${escHtml(m.branch)}</div>` : ''}
+            <div class="message-item-content">${escHtml(m.content)}</div>
+            <div class="message-item-time">${m.time}</div>
+        </div>
+    `).join("");
+}
+
+function escHtml(s) {
+    const d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+}
+
+function submitMessage() {
+    const name = document.getElementById("msgName").value.trim();
+    const type = document.getElementById("msgType").value;
+    const branch = document.getElementById("msgBranch").value.trim();
+    const content = document.getElementById("msgContent").value.trim();
+
+    if (!name) { alert("请填写您的姓名"); return; }
+    if (!content) { alert("请填写留言内容"); return; }
+
+    const now = new Date();
+    const time = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+
+    const msgs = getMessages();
+    msgs.push({ name, type, branch, content, time });
+    saveMessages(msgs);
+    renderMessages();
+
+    document.getElementById("msgName").value = "";
+    document.getElementById("msgBranch").value = "";
+    document.getElementById("msgContent").value = "";
+
+    alert("✅ 留言发布成功！");
+}
 </script>
 </body>
 </html>
